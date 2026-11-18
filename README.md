@@ -10,30 +10,29 @@ The project was built as a portfolio project to practise full-stack development,
 
 An overview of the customer's account and order history.
 
-![Customer Portal](screenshots/Klantenportaal.png)
+![Customer Portal](KoffieBar/Screenshots/Klantenportaal.png)
 
 ### Menu
 
 Browse the available coffees, pastries and extras.
 
-![Menu](screenshots/Menu.png)
+![Menu](KoffieBar/Screenshots/Menu.png)
 
 ### Coffee Customization
 
 Customize coffee orders by selecting sizes and additional options.
 
-![Personalize](screenshots/Personalize.png)
+![Coffee Customization](KoffieBar/Screenshots/Personalize.png)
 
 ### Shopping Cart
 
 Review selected products and order details.
 
-![Shopping Cart](screenshots/Winkelmandje01.png)
+![Shopping Cart - Order Overview](KoffieBar/Screenshots/Winkelmandje01.png)
 
 Review the order total and proceed with the order.
 
-![Shopping Cart - Order Overview](screenshots/Winkelmandje02.png)
-
+![Shopping Cart - Price Calculation](KoffieBar/Screenshots/Winkelmandje02.png)
 ## Features
 
 - **Menu browsing:** View available coffees, pastries and extras.
