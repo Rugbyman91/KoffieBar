@@ -1,0 +1,157 @@
+.klantenportaal {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.bestelling {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.bestelling-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bestelling h2 {
+  margin: 0;
+}
+
+.bestelling ul {
+  padding-left: 1.25rem;
+}
+
+.bestelling li {
+  margin: 0.75rem 0;
+}
+
+.bestelling li span {
+  float: right;
+}
+
+.foutmelding {
+  color: #b42318;
+}
+
+
+.klantenportaal {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.bestelling {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.bestelling-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bestelling-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.bestelling-header span {
+  color: #666;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.bestelling ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bestelling li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.bestelregel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bestelregel-info small {
+  color: #666;
+}
+
+.bestelling li > span {
+  white-space: nowrap;
+}
+
+.bestelling li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.bestelling-totaal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  padding-top: 1rem;
+  border-top: 2px solid #ddd;
+  font-size: 1.05rem;
+}
+
+.bestelling-acties {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bestelling-acties button {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid #b42318;
+  border-radius: 6px;
+  background: white;
+  color: #b42318;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.bestelling-acties button:hover {
+  background: #b42318;
+  color: white;
+}
+
+.bestelling-acties button:focus-visible {
+  outline: 2px solid #b42318;
+  outline-offset: 3px;
+}
+
+.bestelling-status {
+  font-weight: 700;
+}
+
+.bestelling-header .status-geplaatst {
+  color: #18794e;
+}
+
+.bestelling-header .status-geannuleerd {
+  color: #b42318;
+}

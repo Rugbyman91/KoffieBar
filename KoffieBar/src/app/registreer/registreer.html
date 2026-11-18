@@ -1,0 +1,23 @@
+<h1>Registreren</h1>
+
+<form (ngSubmit)="registreer()">
+  <input type="text" name="naam" [(ngModel)]="naam" placeholder="Naam" required />
+
+  <input type="email" name="email" [(ngModel)]="email" placeholder="E-mailadres" required />
+
+  <input type="password" name="wachtwoord" [(ngModel)]="wachtwoord" placeholder="Wachtwoord" required />
+
+<ul class="wachtwoord-regels">
+  @for (regel of regels(); track regel.tekst) {
+    <li [class.ok]="regel.ok">{{ regel.ok ? '✔' : '✘' }} {{ regel.tekst }}</li>
+  }
+</ul>
+
+<button type="submit" [disabled]="!allesOk()">Registreren</button>
+</form>
+
+@for (fout of foutmeldingen(); track fout) {
+  <p>{{ fout }}</p>
+}
+
+<p>Heb je al een account? <a routerLink="/login">Inloggen</a></p>

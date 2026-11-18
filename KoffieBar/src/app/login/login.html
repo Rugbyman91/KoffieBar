@@ -1,0 +1,26 @@
+<h1>Inloggen</h1>
+
+<form (ngSubmit)="inloggen()">
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="email"
+    placeholder="E-mailadres"
+    required
+  />
+
+  <input
+    type="password"
+    name="wachtwoord"
+    [(ngModel)]="wachtwoord"
+    placeholder="Wachtwoord"
+    required
+  />
+  <p class="GreenText">test@test.be - Test123! is een geldig test-account</p>
+  <button type="submit">Inloggen</button>
+  <p>Nog geen account? <a routerLink="/registreer">Registreer hier</a></p>
+</form>
+
+@if (foutmelding()) {
+  <p class="fout">{{ foutmelding() }}</p>
+}

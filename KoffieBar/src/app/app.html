@@ -1,0 +1,32 @@
+<header class="brand-name">
+  <a routerLink="/" class="header-link">
+    <div class="header-content">
+      <img class="logo" src="/assets/logo.png" alt="KoffieBar logo" />
+      <div class="header-text">
+        <h1>KoffieBar</h1>
+        <p>Jouw dagelijkse koffiemoment</p>
+      </div>
+    </div>
+  </a>
+  @if(auth.ingelogd()){
+  <div class="buttons">
+    <button routerLink="/">Home</button>
+    <button routerLink="menu">Menu</button>
+    <button routerLink="klanten">Klantportaal</button>
+    <button routerLink="winkelmandje">
+      Winkelmand
+      @if (mandje.aantalStuks() > 0) {
+        <span class="badge">{{ mandje.aantalStuks() }}</span>
+      }
+    </button>
+    <button (click)="uitloggen()">Uitloggen</button>
+  </div>}
+</header>
+
+<main class="content">
+  <router-outlet />
+</main>
+
+@if (mandje.melding(); as melding) {
+  <div class="toast" role="status" aria-live="polite">{{ melding }}</div>
+}

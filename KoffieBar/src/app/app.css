@@ -1,0 +1,103 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #3b2418;
+}
+
+.brand-name {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #75452b;
+  color: white;
+}
+
+.brand-name > div {
+  display: flex;
+  gap: 1rem;
+}
+
+.brand-name h1 {
+  margin: 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-link h1,
+.header-link p {
+  color: white;
+  text-decoration: none;
+}
+
+.header-text p {
+  margin: 0.5rem 0 0;
+}
+
+.buttons button {
+  position: relative;
+  padding: 0.6rem 1rem;
+  background-color: white;
+  color: #3b2418;
+  border: 2px solid #271810;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logo {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+}
+.content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e6f4ea;
+  color: #1b5e20;
+  border: 1px solid #b7dfc0;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.badge {
+  position: absolute;
+  top: -0.6rem;
+  right: -0.6rem;
+  min-width: 1.4em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background-color: #1b305e;
+  color: white;
+  font-size: 0.8em;
+  line-height: 1.4;
+  text-align: center;
+}

@@ -1,0 +1,167 @@
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  box-sizing: border-box;
+  padding: 1.25rem;
+  border: 1px solid #e5e1da;
+  border-radius: 12px;
+  background: #fffdf9;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+}
+
+.menu-item img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.menu-item h3 {
+  margin: 0 0 0.5rem;
+  color: #3d2921;
+}
+
+.menu-item p {
+  margin: 0 0 0.65rem;
+  line-height: 1.5;
+}
+
+.menu-item .allergies {
+  color: #756b63;
+  font-size: 0.9rem;
+}
+
+.menu-item .price {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #70452c;
+}
+
+.bestel-controls {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.bestel-controls input {
+  width: 4.5rem;
+  min-width: 0;
+  padding: 0.65rem 0.4rem;
+  border: 1px solid #d6cec5;
+  border-radius: 6px;
+  font: inherit;
+  text-align: center;
+}
+
+.bestel-controls button {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #70452c;
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.bestel-controls button:hover {
+  background: #52311f;
+}
+
+.bestel-controls button:focus-visible,
+.bestel-controls input:focus-visible {
+  outline: 2px solid #b88654;
+  outline-offset: 2px;
+}
+
+
+.bestel-knop,
+.annuleer-knop {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bestel-knop {
+  background: #70452c;
+  color: white;
+}
+
+.bestel-knop:hover {
+  background: #52311f;
+}
+
+.bestel-knop:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dialoog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(30 22 18 / 60%);
+}
+
+.koffie-dialoog {
+  width: min(100%, 420px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #fffdf9;
+  color: #3d2921;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
+}
+
+.koffie-dialoog h3 {
+  margin-top: 0;
+}
+
+.koffie-dialoog h4 {
+  margin: 1.25rem 0 0.5rem;
+}
+
+.keuze-optie {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0;
+}
+
+.keuze-optie input {
+  accent-color: #70452c;
+}
+
+.keuze-prijs {
+  margin-left: auto;
+  margin-right: 0.75rem;
+  font-weight: 600;
+  color: #70452c;
+}
+
+.dialoog-acties {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.annuleer-knop {
+  border: 1px solid #d6cec5;
+  background: white;
+  color: #70452c;
+}

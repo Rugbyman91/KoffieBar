@@ -1,0 +1,230 @@
+
+.winkelmand {
+  max-width: 850px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  color: #3d2921;
+}
+
+.winkelmand-header {
+  margin-bottom: 2rem;
+}
+
+.winkelmand-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.winkelmand-header p,
+.bestelregel-info p {
+  color: #756b63;
+}
+
+.winkelmand-leeg {
+  padding: 3rem 1.5rem;
+  border: 1px dashed #d6cec5;
+  border-radius: 12px;
+  background: #fffdf9;
+  text-align: center;
+}
+
+.winkelmand-leeg a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  background: #70452c;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.bestelregels {
+  display: grid;
+  gap: 1rem;
+}
+
+.bestelregel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #e5e1da;
+  border-radius: 10px;
+  background: #fffdf9;
+}
+
+.bestelregel-info h3 {
+  margin: 0 0 0.5rem;
+}
+
+.bestelregel-info p {
+  margin: 0.25rem 0;
+}
+
+.verwijder-knop,
+.leegmaken-knop {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid #d6cec5;
+  border-radius: 6px;
+  background: white;
+  color: #70452c;
+  font: inherit;
+  cursor: pointer;
+}
+
+.winkelmand-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.verwijder-knop:hover,
+.leegmaken-knop:hover {
+  background: #f5eee7;
+}
+
+@media (max-width: 500px) {
+  .winkelmand {
+    padding: 1rem;
+  }
+
+  .bestelregel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.bestelregel {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.8rem;
+  border: 1px solid #e5e1da;
+  border-radius: 10px;
+  background: #fffdf9;
+}
+
+.bestelregel-afbeelding {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.bestelregel-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.verwijder-knop {
+  flex-shrink: 0;
+}
+
+
+.winkelmand-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.winkelmand-acties {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.winkelmand-acties button {
+  min-height: 44px;
+  padding: 10px 18px;
+  box-sizing: border-box;
+}
+
+.winkelmand-acties button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.winkelmand-meldingen {
+  min-height: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.winkelmand-meldingen p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.succesmelding {
+  background-color: #fdecea;
+  color: #267343;
+  border: 1px solid #f5c2c0;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0;
+}
+
+.foutmelding {
+  background-color: #fdecea;
+  color: #b00020;
+  border: 1px solid #f5c2c0;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0;
+}
+
+
+.prijs-overzicht {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.prijs-overzicht h3 {
+  margin-top: 0;
+}
+
+.korting-info, .kortingsbedrag {
+  color: #267343;
+  font-weight: 600;
+}
+
+.korting-regels {
+  padding-left: 40px;
+}
+
+.korting-regels li{
+  padding-bottom: 5px;
+}
+
+.prijs-regels {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.prijs-regels p {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.prijs-regels .totaalprijs {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+  font-size: 1.2rem;
+}
+
+.prijs-regels span {
+  text-align: right;
+}
+

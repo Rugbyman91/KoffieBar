@@ -1,0 +1,91 @@
+:host {
+  display: block;
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  color: #3b2416;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 20px;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid #a16207;
+  border-color: transparent;
+}
+
+button {
+  padding: 0.85rem;
+  border: none;
+  border-radius: 8px;
+  background: #6f4328;
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #4b2e1c;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+p {
+  margin-bottom: 0;
+  color: #b42318;
+  text-align: center;
+}
+
+.wachtwoord-regels {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+.wachtwoord-regels li {
+  color: #b00020;
+}
+
+.wachtwoord-regels li.ok {
+  color: #1b7f3b;
+}
+
+.GreenText{
+  color: #1b7f3b;
+}
+
+.fout {
+  background-color: #fdecea;
+  color: #b00020;
+  border: 1px solid #f5c2c0;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0;
+}
