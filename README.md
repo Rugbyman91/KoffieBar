@@ -1,59 +1,120 @@
 # KoffieBar
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.24.
+A full-stack coffee bar application built with **Angular 21** and **ASP.NET Core (.NET 10)**. KoffieBar allows customers to explore a menu, customize their orders, manage their shopping cart and place orders through a customer account.
 
-## Development server
+The project was built as a portfolio project to practise full-stack development, REST API integration, authentication and database management.
 
-To start a local development server, run:
+## Screenshots
+
+### Customer Portal
+
+An overview of the customer's account and order history.
+
+![Customer Portal](screenshots/Klantenportaal.png)
+
+### Menu
+
+Browse the available coffees, pastries and extras.
+
+![Menu](screenshots/Menu.png)
+
+### Coffee Customization
+
+Customize coffee orders by selecting sizes and additional options.
+
+![Personalize](screenshots/Personalize.png)
+
+### Shopping Cart
+
+Review selected products and order details.
+
+![Shopping Cart](screenshots/Winkelmandje01.png)
+
+Review the order total and proceed with the order.
+
+![Shopping Cart - Order Overview](screenshots/Winkelmandje02.png)
+
+## Features
+
+- **Menu browsing:** View available coffees, pastries and extras.
+- **Product customization:** Select coffee sizes and additional extras.
+- **Shopping cart:** Add products, manage quantities and calculate totals.
+- **Order management:** Place orders and view previous orders.
+- **Customer accounts:** Register and log in to access personal order information.
+- **Authentication:** Secure API endpoints using JWT authentication.
+- **Order status:** Track and manage order statuses.
+- **Discount logic:** Automatic discount when combining coffee and pastries.
+
+## Tech Stack
+
+| Frontend          | Backend                        |
+| ----------------- | ------------------------------ |
+| Angular 21        | ASP.NET Core Web API (.NET 10) |
+| TypeScript        | C# 14                          |
+| HTML & CSS        | Entity Framework Core          |
+| RxJS & HttpClient | SQLite                         |
+| Angular Routing   | JWT Authentication             |
+
+## Project Structure
+
+```text
+KoffieBarProject/
+├── KoffieBar/             # Angular frontend
+│   ├── public/
+│   ├── screenshots/
+│   └── src/
+│
+├── KoffieBar.API/         # ASP.NET Core Web API
+│   ├── Controllers/
+│   ├── Data/
+│   ├── Migrations/
+│   ├── Models/
+│   └── Services/
+│
+├── KoffieBar.API.slnx
+└── README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- .NET 10 SDK
+- Node.js and npm
+- Angular CLI
+
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/Rugbyman91/KoffieBar.git
+cd KoffieBar
+```
+
+### 2. Start the backend
+
+```bash
+dotnet restore KoffieBar.API
+dotnet run --project KoffieBar.API
+```
+
+The API is configured to run locally at:
+
+`http://localhost:5274`
+
+### 3. Start the frontend
+
+Open a second terminal:
+
+```bash
+cd KoffieBar
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open your browser at:
 
-## Code scaffolding
+`http://localhost:4200`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Development
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is an ongoing learning and portfolio project. It focuses on building a complete application by connecting an Angular frontend to a custom ASP.NET Core API, with an emphasis on practical functionality, clean code and full-stack development.
