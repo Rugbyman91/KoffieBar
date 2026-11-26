@@ -58,7 +58,6 @@ export class Mandje {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(overzicht => {
-      console.log('Prijsberekening ontvangen:', overzicht);
       this.prijsOverzicht.set(overzicht);
     });
   }

@@ -24,7 +24,6 @@ export class Menu implements OnInit {
   ngOnInit(): void {
     this.menuService.getMenu().subscribe({
       next: (data) => {
-        console.log('Menu ontvangen:', data);
         this.menu = data;
         this.cdr.detectChanges();
 
