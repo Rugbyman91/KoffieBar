@@ -41,7 +41,7 @@ Review the order total and proceed with the order.
 - **Order management:** Place orders and view previous orders.
 - **Customer accounts:** Register and log in to access personal order information.
 - **Authentication:** Secure API endpoints using JWT authentication.
-- **Order status:** Track and manage order statuses.
+- **Order cancellation:** Cancel an order within 30 minutes of placing it.
 - **Discount logic:** Automatic discount when combining coffee and pastries.
 
 ## Tech Stack
