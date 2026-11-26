@@ -1,7 +1,7 @@
 
-@if (foutmelding) {
-  <p>{{ foutmelding }}</p>
-} @else if (menu; as menuData) {
+@if (foutmelding()) {
+  <p>{{ foutmelding() }}</p>
+} @else if (menu(); as menuData) {
   <h2 id="koffie">Koffie</h2>
   <div class="menu-grid">
     @for (coffee of menuData.coffees; track coffee.id) {

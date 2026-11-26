@@ -1,14 +1,14 @@
 <section class="klantenportaal">
   <h1>Mijn bestellingen</h1>
 
-  @if (laden) {
+  @if (laden()) {
     <p>Bestellingen laden...</p>
-  } @else if (foutmelding) {
-    <p class="foutmelding">{{ foutmelding }}</p>
-  } @else if (bestellingen.length === 0) {
+  } @else if (foutmelding()) {
+    <p class="foutmelding">{{ foutmelding() }}</p>
+  } @else if (bestellingen().length === 0) {
     <p>Je hebt nog geen bestellingen geplaatst.</p>
   } @else {
-    @for (bestelling of bestellingen; track bestelling.id) {
+    @for (bestelling of bestellingen(); track bestelling.id) {
 
       <article class="bestelling">
         <div class="bestelling-header">
@@ -27,6 +27,7 @@
             @if (kanAnnuleren(bestelling)) {
               <button
                 type="button"
+                class="annuleer-knop"
                 (click)="annuleerBestelling(bestelling)">
                 Annuleren
               </button>

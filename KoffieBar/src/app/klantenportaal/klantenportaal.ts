@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { BestellingService } from '../services/bestelling';
 
@@ -30,11 +30,10 @@ interface Bestelling {
 
 export class Klantenportaal implements OnInit {
   private bestellingService = inject(BestellingService);
-  private cdr = inject(ChangeDetectorRef);
 
-  bestellingen: Bestelling[] = [];
-  foutmelding = '';
-  laden = true;
+  readonly bestellingen = signal<Bestelling[]>([]);
+  readonly foutmelding = signal('');
+  readonly laden = signal(true);
 
 
 kanAnnuleren(bestelling: Bestelling): boolean {
@@ -52,14 +51,21 @@ annuleerBestelling(bestelling: Bestelling): void {
 
   this.bestellingService.annuleerBestelling(bestelling.id).subscribe({
     next: () => {
-      bestelling.status = 'Geannuleerd';
-      this.cdr.detectChanges();
+      this.bestellingen.update(bestellingen =>
+        bestellingen.map(item =>
+          item.id === bestelling.id
+            ? { ...item, status: 'Geannuleerd' }
+            : item
+        )
+      );
     },
     error: error => {
       console.error('Annuleren mislukt:', error);
-      this.foutmelding = error.status === 400
-        ? 'Deze bestelling kan niet meer geannuleerd worden.'
-        : 'Er ging iets mis bij het annuleren van je bestelling.';
+      this.foutmelding.set(
+        error.status === 400
+          ? 'Deze bestelling kan niet meer geannuleerd worden.'
+          : 'Er ging iets mis bij het annuleren van je bestelling.'
+      );
     }
   });
 }
@@ -68,19 +74,17 @@ annuleerBestelling(bestelling: Bestelling): void {
 ngOnInit(): void {
   this.bestellingService.mijnBestellingen().subscribe({
     next: bestellingen => {
-      this.bestellingen = bestellingen;
-      this.laden = false;
-      this.cdr.detectChanges();
+      this.bestellingen.set(bestellingen);
+      this.laden.set(false);
     },
     error: error => {
       console.error('Bestellingen ophalen mislukt:', error);
 
-      this.foutmelding = error.status === 401
+      this.foutmelding.set(error.status === 401
         ? 'Je sessie is verlopen. Log opnieuw in.'
-        : 'Je bestellingen konden niet worden opgehaald.';
+        : 'Je bestellingen konden niet worden opgehaald.');
 
-      this.laden = false;
-      this.cdr.detectChanges();
+      this.laden.set(false);
     }
   });
 }
