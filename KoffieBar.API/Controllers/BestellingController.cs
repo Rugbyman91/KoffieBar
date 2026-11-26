@@ -79,6 +79,7 @@ public class BestellingController : ControllerBase
             return Unauthorized();
 
         var bestellingen = await _context.Bestellingen
+            .AsNoTracking()
             .Where(b => b.KlantId == klantId)
             .Include(b => b.Bestelregels)
                 .ThenInclude(r => r.Product)
@@ -175,21 +176,19 @@ public class BestellingController : ControllerBase
         if (producten.Count != productIds.Count)
             return (null, "Een of meer producten bestaan niet.");
 
+        if (aanvragen.Any(aanvraag =>
+        {
+            var ids = aanvraag.ExtraIds ?? [];
+            return ids.Count != ids.Distinct().Count();
+        }))
+        {
+            return (null, "Dezelfde extra mag niet dubbel gekozen worden.");
+        }
+
         var alleExtraIds = aanvragen
             .SelectMany(r => r.ExtraIds ?? [])
+            .Distinct()
             .ToList();
-
-        if (alleExtraIds.Count != alleExtraIds.Distinct().Count())
-        {
-            // Dubbele extra's binnen één regel zijn niet toegestaan.
-            foreach (var aanvraag in aanvragen)
-            {
-                var ids = aanvraag.ExtraIds ?? [];
-
-                if (ids.Count != ids.Distinct().Count())
-                    return (null, "Dezelfde extra mag niet dubbel gekozen worden.");
-            }
-        }
 
         var extraIds = alleExtraIds.Distinct().ToList();
 
@@ -218,7 +217,7 @@ public class BestellingController : ControllerBase
                 if (string.IsNullOrWhiteSpace(aanvraag.GrootteCode))
                     return (null, "Kies een formaat voor elke koffie.");
 
-                var groottes = product.Name == "Espresso"
+                var groottes = product.IsEspresso
                     ? KoffieOpties.EspressoGroottes
                     : KoffieOpties.KoffieGroottes;
 

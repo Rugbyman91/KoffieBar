@@ -216,6 +216,9 @@ namespace KoffieBar.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsEspresso")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -234,6 +237,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "geen",
                             Categorie = 1,
                             Description = "Espresso aangelengd met heet water",
+                            IsEspresso = false,
                             Name = "Americano",
                             Price = 2.0m
                         },
@@ -243,6 +247,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "geen",
                             Categorie = 1,
                             Description = "Een kleine, krachtige shot koffie",
+                            IsEspresso = true,
                             Name = "Espresso",
                             Price = 1.5m
                         },
@@ -252,6 +257,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "melk",
                             Categorie = 1,
                             Description = "Espresso met warme melk en een dikke schuimlaag",
+                            IsEspresso = false,
                             Name = "Cappuccino",
                             Price = 3.0m
                         },
@@ -261,6 +267,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "melk",
                             Categorie = 1,
                             Description = "Espresso met veel warme melk en een dun laagje schuim",
+                            IsEspresso = false,
                             Name = "Latte",
                             Price = 3.0m
                         },
@@ -270,6 +277,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "gluten, melk",
                             Categorie = 2,
                             Description = "Boterig bladerdeeg in halvemaanvorm",
+                            IsEspresso = false,
                             Name = "Croissant",
                             Price = 1.75m
                         },
@@ -279,6 +287,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "gluten, melk",
                             Categorie = 2,
                             Description = "Bladerdeeg gevuld met chocolade",
+                            IsEspresso = false,
                             Name = "Chocoladekoek",
                             Price = 2.0m
                         },
@@ -288,6 +297,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "gluten, melk",
                             Categorie = 2,
                             Description = "Zacht gebak met kaneel en suiker",
+                            IsEspresso = false,
                             Name = "Kaneelkoek",
                             Price = 2.25m
                         },
@@ -297,6 +307,7 @@ namespace KoffieBar.API.Migrations
                             Allergies = "gluten, melk, noten",
                             Categorie = 2,
                             Description = "Zacht gebak met pecannoten en karamel",
+                            IsEspresso = false,
                             Name = "Pecanotenkoek",
                             Price = 2.5m
                         });

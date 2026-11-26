@@ -33,9 +33,6 @@ namespace KoffieBar.API
 
             builder.Services.AddAuthorization();
 
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
-
             builder.Services.AddSwaggerGen(options =>
             {
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -84,38 +81,37 @@ namespace KoffieBar.API
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<KoffieContext>();
+
+                // Database migreren in elke omgeving.
                 await context.Database.MigrateAsync();
 
-                Console.WriteLine(
-                    $"Database bereikbaar: {await context.Database.CanConnectAsync()}");
-
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Klant>>();
-
-                if (await userManager.FindByEmailAsync("test@test.be") is null)
+                // Alleen in Development een demoaccount aanmaken.
+                if (app.Environment.IsDevelopment())
                 {
-                    var testKlant = new Klant
-                    {
-                        Naam = "Test Klant",
-                        Email = "test@test.be",
-                        UserName = "test@test.be"
-                    };
+                    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Klant>>();
 
-                    var resultaat = await userManager.CreateAsync(testKlant, "Test123!");
-
-                    if (!resultaat.Succeeded)
+                    if (await userManager.FindByEmailAsync("test@test.be") is null)
                     {
-                        Console.WriteLine(string.Join(
-                            ", ",
-                            resultaat.Errors.Select(error => error.Description)));
+                        var testKlant = new Klant
+                        {
+                            Naam = "Test Klant",
+                            Email = "test@test.be",
+                            UserName = "test@test.be"
+                        };
+
+                        var resultaat = await userManager.CreateAsync(testKlant, "Test123!");
+
+                        if (!resultaat.Succeeded)
+                        {
+                            app.Logger.LogError(
+                                "Demoaccount kon niet worden aangemaakt: {Errors}",
+                                string.Join(", ", resultaat.Errors.Select(error => error.Description)));
+                        }
                     }
                 }
             }
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
 
             if (!app.Environment.IsDevelopment())
             {

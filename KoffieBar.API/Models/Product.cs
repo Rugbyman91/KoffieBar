@@ -8,5 +8,6 @@
         public string Allergies { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public Categorie Categorie { get; set; }
+        public bool IsEspresso { get; set; }
     }
 }
