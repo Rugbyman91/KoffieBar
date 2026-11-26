@@ -1,3 +1,4 @@
+
 import { Injectable, computed, signal } from '@angular/core';
 import { Bestelregel, GebakBestelregel, KoffieBestelregel } from '../models/bestelregel';
 import { MenuOptions, ExtraOption, KoffieGrootte } from '../menu-options';
@@ -6,7 +7,9 @@ import { MenuOptions, ExtraOption, KoffieGrootte } from '../menu-options';
   providedIn: 'root'
 })
 export class Winkelmandje {
-  private readonly regels = signal<Bestelregel[]>([]);
+  private readonly opslagSleutel = 'winkelmandje';
+
+  private readonly regels = signal<Bestelregel[]>(this.laadWinkelmandje());
 
   readonly bestelregels = this.regels.asReadonly();
 
@@ -42,6 +45,7 @@ export class Winkelmandje {
       }];
     });
 
+    this.bewaarWinkelmandje();
     this.toonMelding(`${aantal} × ${product.name} toegevoegd aan je winkelmand`);
   }
 
@@ -76,15 +80,32 @@ export class Winkelmandje {
       }];
     });
 
+    this.bewaarWinkelmandje();
     this.toonMelding(`${product.name} (${grootte.label}) toegevoegd aan je winkelmand`);
   }
 
   verwijderRegel(index: number): void {
     this.regels.update(regels => regels.filter((_, i) => i !== index));
+    this.bewaarWinkelmandje();
   }
 
   leegmaken(): void {
     this.regels.set([]);
+    localStorage.removeItem(this.opslagSleutel);
+  }
+
+  private laadWinkelmandje(): Bestelregel[] {
+    try {
+      const opgeslagen = localStorage.getItem(this.opslagSleutel);
+
+      return opgeslagen ? JSON.parse(opgeslagen) as Bestelregel[] : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private bewaarWinkelmandje(): void {
+    localStorage.setItem(this.opslagSleutel, JSON.stringify(this.regels()));
   }
 
   private toonMelding(tekst: string): void {

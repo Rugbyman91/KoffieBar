@@ -28,6 +28,7 @@ describe('Winkelmandje', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
+    localStorage.clear();
     TestBed.configureTestingModule({});
     mandje = TestBed.inject(Winkelmandje);
   });
@@ -152,6 +153,28 @@ describe('Winkelmandje', () => {
 
       expect(mandje.bestelregels()).toEqual([]);
       expect(mandje.aantalStuks()).toBe(0);
+    });
+
+    it('slaat het verwijderen van een regel op in localStorage', () => {
+      mandje.voegGebakToe(croissant, 1);
+      mandje.voegGebakToe(kaneelkoek, 1);
+
+      mandje.verwijderRegel(0);
+
+      const opgeslagen = JSON.parse(
+        localStorage.getItem('winkelmandje') ?? '[]'
+      );
+
+      expect(opgeslagen).toHaveLength(1);
+      expect(opgeslagen[0].product.name).toBe('Kaneelkoek');
+    });
+
+    it('verwijdert de opgeslagen winkelmandinhoud bij leegmaken', () => {
+      mandje.voegGebakToe(croissant, 1);
+
+      mandje.leegmaken();
+
+      expect(localStorage.getItem('winkelmandje')).toBeNull();
     });
   });
 
