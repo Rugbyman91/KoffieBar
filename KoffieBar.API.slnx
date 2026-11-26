@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="KoffieBar.API.Tests/KoffieBar.API.Tests.csproj" />
   <Project Path="KoffieBar.API/KoffieBar.API.csproj" />
 </Solution>
