@@ -9,11 +9,23 @@
     </div>
   </a>
   @if(auth.ingelogd()){
-  <div class="buttons">
-    <button routerLink="/">Home</button>
-    <button routerLink="menu">Menu</button>
-    <button routerLink="klanten">Klantportaal</button>
-    <button routerLink="winkelmandje">
+  <button
+    type="button"
+    class="menu-knop"
+    [attr.aria-expanded]="menuOpen()"
+    (click)="wisselMenu()"
+  >
+    <span aria-hidden="true">☰</span> Menu
+    @if (mandje.aantalStuks() > 0) {
+      <span class="badge">{{ mandje.aantalStuks() }}</span>
+    }
+  </button>
+
+  <div class="buttons" [class.open]="menuOpen()">
+    <button routerLink="/" (click)="sluitMenu()">Home</button>
+    <button routerLink="menu" (click)="sluitMenu()">Menu</button>
+    <button routerLink="klanten" (click)="sluitMenu()">Klantportaal</button>
+    <button routerLink="winkelmandje" (click)="sluitMenu()">
       Winkelmand
       @if (mandje.aantalStuks() > 0) {
         <span class="badge">{{ mandje.aantalStuks() }}</span>
