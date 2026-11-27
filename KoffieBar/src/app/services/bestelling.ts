@@ -2,6 +2,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from '../api-config';
 
 export interface BestelregelAanvraag {
   productId: number;
@@ -44,7 +45,7 @@ export type BestellingStatus = 'Geplaatst' | 'Geannuleerd';
 })
 export class BestellingService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:5274/api/bestellingen';
+  private readonly apiUrl = `${API_BASE_URL}/bestellingen`;
 
   berekenBestelling(
     aanvraag: BestellingAanvraag

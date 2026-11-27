@@ -1,5 +1,6 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { API_BASE_URL } from '../api-config';
 
 interface LoginResponse {
   token: string;
@@ -12,7 +13,7 @@ interface LoginResponse {
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5274/api/Auth';
+  private apiUrl = `${API_BASE_URL}/Auth`;
   private token = signal<string | null>(localStorage.getItem('authToken'));
   readonly ingelogd = computed(() => this.token() !== null);
 

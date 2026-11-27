@@ -2,7 +2,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MenuOptions, ExtraOption, KoffieGrootte } from '../../menu-options';
+import { MenuOptions, ExtraOption, KoffieGrootte, Categorie } from '../../menu-options';
 import { Winkelmandje } from '../../services/winkelmandje';
 
 @Component({
@@ -11,6 +11,7 @@ import { Winkelmandje } from '../../services/winkelmandje';
   templateUrl: './menu-item.html',
   styleUrl: './menu-item.css',
 })
+
 export class MenuItem {
   @Input({ required: true }) item!: MenuOptions;
   @Input() coffeeSizes: KoffieGrootte[] = [];
@@ -25,11 +26,11 @@ export class MenuItem {
   gekozenExtras: number[] = [];
 
   get isKoffie(): boolean {
-    return itemIsCoffee(this.item.id);
+    return this.item.categorie === Categorie.Koffie;
   }
 
   get beschikbareGroottes(): KoffieGrootte[] {
-    return this.item.name === 'Espresso'
+    return this.item.isEspresso
       ? this.espressoSizes
       : this.coffeeSizes;
   }
@@ -66,8 +67,4 @@ export class MenuItem {
     this.mandje.voegGebakToe(this.item, this.aantal);
     this.aantal = 1;
   }
-}
-
-function itemIsCoffee(id: number): boolean {
-  return id >= 1 && id <= 4;
 }

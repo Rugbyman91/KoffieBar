@@ -7,12 +7,13 @@ import {
   provideHttpClientTesting
 } from '@angular/common/http/testing';
 import { AuthService } from './auth';
+import { API_BASE_URL } from '../api-config';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpMock: HttpTestingController;
 
-  const apiUrl = 'http://localhost:5274/api/Auth';
+  const apiUrl = `${API_BASE_URL}/Auth`;
 
   beforeEach(() => {
     localStorage.clear();

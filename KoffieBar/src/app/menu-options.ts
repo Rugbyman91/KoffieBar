@@ -3,7 +3,14 @@ export interface MenuOptions {
     name: string,
     description: string,
     allergies: string,
-    price: number
+    price: number,
+    categorie: Categorie;
+    isEspresso: boolean;
+}
+
+export enum Categorie {
+  Koffie = 1,
+  Gebak = 2
 }
 
 export interface ExtraOption {
