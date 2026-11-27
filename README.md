@@ -156,6 +156,7 @@ In PowerShell on Windows, `npm.cmd test -- --watch=false` works as well.
 - **No payment:** the price of an order is calculated, but no payment logic is implemented. The 5-cent rounding is a technical exercise; online shops normally charge the exact amount.
 - **Error messages:** registration errors from ASP.NET Core Identity are shown in English.
 - **JWT development key:** the signing key in `appsettings.Development.json` is committed on purpose so the project runs out of the box. Replace it via the `Jwt__Key` environment variable before any public use.
+- **npm audit:** `npm audit --omit=dev` reports no vulnerabilities. A plain `npm audit` still lists advisories in Angular's own build tooling (dev dependencies only), including one high-severity advisory in `undici`; the remaining automatic fix is a breaking downgrade of the Angular CLI.
 
 ## Development
 
