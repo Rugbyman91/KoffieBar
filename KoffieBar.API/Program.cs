@@ -71,6 +71,14 @@ namespace KoffieBar.API
             });
 
             var app = builder.Build();
+            var jwtKey = app.Configuration["Jwt:Key"];
+
+            if (string.IsNullOrWhiteSpace(jwtKey) || jwtKey.Length < 32)
+            {
+                throw new InvalidOperationException(
+                    "Jwt:Key ontbreekt of is korter dan 32 tekens. " +
+                    "Start de API in Development (dotnet run) of zet de omgevingsvariabele Jwt__Key.");
+            }
 
             if (app.Environment.IsDevelopment())
             {

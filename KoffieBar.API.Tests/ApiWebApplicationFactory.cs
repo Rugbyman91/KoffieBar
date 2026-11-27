@@ -32,7 +32,9 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
                 ["Jwt:Key"] = "TestSigningKey_For_KoffieBar_IntegrationTests_123456",
                 ["Jwt:Issuer"] = "KoffieBar.Tests",
                 ["Jwt:Audience"] = "KoffieBar.Tests",
-                ["Jwt:ExpiresMinutes"] = "60"
+                ["Jwt:ExpiresMinutes"] = "60",
+                ["Logging:LogLevel:Default"] = "Warning",
+                ["Logging:LogLevel:Microsoft.EntityFrameworkCore"] = "Warning"
             });
         });
 
