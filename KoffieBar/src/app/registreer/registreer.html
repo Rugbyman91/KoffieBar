@@ -19,7 +19,9 @@
     }
   </ul>
 
-  <button type="submit" [disabled]="!allesOk()">Registreren</button>
+  <button type="submit" [disabled]="!allesOk() || bezig()">
+    {{ bezig() ? 'Bezig...' : 'Registreren' }}
+  </button>
 </form>
 
 @for (fout of foutmeldingen(); track fout) {

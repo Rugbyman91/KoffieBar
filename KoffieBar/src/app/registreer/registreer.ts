@@ -18,6 +18,7 @@ export class Registreer {
   email = '';
   wachtwoord = signal('');
   foutmeldingen = signal<string[]>([]);
+  bezig = signal(false);
 
   regels = computed(() => {
     const w = this.wachtwoord();
@@ -33,11 +34,19 @@ export class Registreer {
   allesOk = computed(() => this.regels().every((r) => r.ok));
 
   registreer(): void {
+    if (this.bezig()) {
+      return;
+    }
+
     this.foutmeldingen.set([]);
+    this.bezig.set(true);
 
     this.auth.registreer(this.naam, this.email, this.wachtwoord()).subscribe({
       next: () => this.router.navigate(['/login']),
-      error: (fout: HttpErrorResponse) => this.foutmeldingen.set(this.naarMeldingen(fout)),
+      error: (fout: HttpErrorResponse) => {
+        this.foutmeldingen.set(this.naarMeldingen(fout));
+        this.bezig.set(false);
+      },
     });
   }
 

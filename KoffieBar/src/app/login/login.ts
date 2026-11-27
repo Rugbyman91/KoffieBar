@@ -18,9 +18,15 @@ export class Login {
   email = '';
   wachtwoord = '';
   foutmelding = signal('');
+  bezig = signal(false);
 
   inloggen(): void {
+    if (this.bezig()) {
+      return;
+    }
+
     this.foutmelding.set('');
+    this.bezig.set(true);
 
     this.auth.login(this.email, this.wachtwoord).subscribe({
       next: (response) => {
@@ -28,12 +34,19 @@ export class Login {
         this.router.navigate(['/']);
       },
       error: (fout: HttpErrorResponse) => {
-        this.foutmelding.set(
-          fout.status === 401
-            ? 'Ongeldig e-mailadres of wachtwoord.'
-            : 'De server is niet bereikbaar. Probeer het later opnieuw.',
-        );
+        this.foutmelding.set(this.naarMelding(fout));
+        this.bezig.set(false);
       },
     });
+  }
+
+  private naarMelding(fout: HttpErrorResponse): string {
+    if (fout.status === 401) {
+      return 'Ongeldig e-mailadres of wachtwoord.';
+    }
+    if (fout.status === 0) {
+      return 'De server is niet bereikbaar.';
+    }
+    return `Er ging iets mis (status ${fout.status}).`;
   }
 }

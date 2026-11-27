@@ -11,7 +11,7 @@
     required
   />
   <p class="GreenText">test@test.be - Test123! is een geldig test-account</p>
-  <button type="submit">Inloggen</button>
+  <button type="submit" [disabled]="bezig()">{{ bezig() ? 'Bezig...' : 'Inloggen' }}</button>
   <p>Nog geen account? <a routerLink="/registreer">Registreer hier</a></p>
 </form>
 

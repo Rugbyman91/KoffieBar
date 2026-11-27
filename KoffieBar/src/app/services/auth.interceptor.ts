@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
+import { AuthService } from './auth';
 
 function tokenVerlopen(token: string): boolean {
   try {
@@ -15,11 +16,12 @@ function tokenVerlopen(token: string): boolean {
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
-  const token = localStorage.getItem('authToken');
+  const auth = inject(AuthService);
+  const token = auth.getToken();
 
   if (!token || tokenVerlopen(token)) {
     if (token) {
-      localStorage.removeItem('authToken');
+      auth.uitloggen();
       void router.navigate(['/login']);
     }
 
@@ -35,7 +37,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(authReq).pipe(
     catchError((error: unknown) => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
-        localStorage.removeItem('authToken');
+        auth.uitloggen();
         void router.navigate(['/login']);
       }
 

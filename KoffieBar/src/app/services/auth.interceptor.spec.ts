@@ -4,6 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideRouter, Router } from '@angular/router';
 import { vi } from 'vitest';
 import { authInterceptor } from './auth.interceptor';
+import { AuthService } from './auth';
 
 describe('authInterceptor', () => {
   let http: HttpClient;
@@ -74,6 +75,7 @@ describe('authInterceptor', () => {
     const request = httpMock.expectOne('/api/test');
 
     expect(localStorage.getItem('authToken')).toBeNull();
+    expect(TestBed.inject(AuthService).ingelogd()).toBe(false);
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
     expect(request.request.headers.has('Authorization')).toBe(false);
 
@@ -112,7 +114,22 @@ describe('authInterceptor', () => {
     );
 
     expect(localStorage.getItem('authToken')).toBeNull();
+    expect(TestBed.inject(AuthService).ingelogd()).toBe(false);
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
+  });
+
+  it('leest het token via AuthService', () => {
+    const token = maakToken(3600);
+    TestBed.inject(AuthService).bewaarToken(token);
+    localStorage.removeItem('authToken');
+
+    http.get('/api/test').subscribe();
+
+    const request = httpMock.expectOne('/api/test');
+
+    expect(request.request.headers.get('Authorization')).toBe(`Bearer ${token}`);
+
+    request.flush({});
   });
 
   it('verwijdert het token niet bij een andere HTTP-fout', () => {
