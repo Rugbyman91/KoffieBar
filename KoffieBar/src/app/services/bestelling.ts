@@ -1,4 +1,3 @@
-
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -41,28 +40,18 @@ export interface BestellingResponse {
 export type BestellingStatus = 'Geplaatst' | 'Geannuleerd';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BestellingService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${API_BASE_URL}/bestellingen`;
 
-  berekenBestelling(
-    aanvraag: BestellingAanvraag
-  ): Observable<BestellingResponse> {
-    return this.http.post<BestellingResponse>(
-      `${this.apiUrl}/berekening`,
-      aanvraag
-    );
+  berekenBestelling(aanvraag: BestellingAanvraag): Observable<BestellingResponse> {
+    return this.http.post<BestellingResponse>(`${this.apiUrl}/berekening`, aanvraag);
   }
 
-  plaatsBestelling(
-    aanvraag: BestellingAanvraag
-  ): Observable<BestellingResponse> {
-    return this.http.post<BestellingResponse>(
-      this.apiUrl,
-      aanvraag
-    );
+  plaatsBestelling(aanvraag: BestellingAanvraag): Observable<BestellingResponse> {
+    return this.http.post<BestellingResponse>(this.apiUrl, aanvraag);
   }
 
   mijnBestellingen(): Observable<BestellingResponse[]> {
@@ -70,9 +59,6 @@ export class BestellingService {
   }
 
   annuleerBestelling(id: number): Observable<void> {
-    return this.http.patch<void>(
-      `${this.apiUrl}/${id}/annuleren`,
-      {}
-    );
+    return this.http.patch<void>(`${this.apiUrl}/${id}/annuleren`, {});
   }
 }

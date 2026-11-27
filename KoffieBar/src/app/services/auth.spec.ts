@@ -1,11 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  provideHttpClient
-} from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting
-} from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { AuthService } from './auth';
 import { API_BASE_URL } from '../api-config';
 
@@ -19,10 +14,7 @@ describe('AuthService', () => {
     localStorage.clear();
 
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting()
-      ]
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
 
     httpMock = TestBed.inject(HttpTestingController);
@@ -46,13 +38,13 @@ describe('AuthService', () => {
     expect(request.request.method).toBe('POST');
     expect(request.request.body).toEqual({
       email: 'test@test.be',
-      wachtwoord: 'Test123!'
+      wachtwoord: 'Test123!',
     });
 
     request.flush({
       token: 'test-token',
       naam: 'Test',
-      email: 'test@test.be'
+      email: 'test@test.be',
     });
   });
 
@@ -65,13 +57,13 @@ describe('AuthService', () => {
     expect(request.request.body).toEqual({
       naam: 'Test',
       email: 'test@test.be',
-      wachtwoord: 'Test123!'
+      wachtwoord: 'Test123!',
     });
 
     request.flush({
       id: 'test-id',
       naam: 'Test',
-      email: 'test@test.be'
+      email: 'test@test.be',
     });
   });
 
@@ -100,10 +92,7 @@ describe('AuthService', () => {
     TestBed.resetTestingModule();
 
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting()
-      ]
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
 
     const nieuweService = TestBed.inject(AuthService);

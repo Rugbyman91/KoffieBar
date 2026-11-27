@@ -1,13 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  provideHttpClient,
-  withInterceptors,
-  HttpClient
-} from '@angular/common/http';
-import {
-  HttpTestingController,
-  provideHttpClientTesting
-} from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptors, HttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter, Router } from '@angular/router';
 import { vi } from 'vitest';
 import { authInterceptor } from './auth.interceptor';
@@ -18,9 +11,11 @@ describe('authInterceptor', () => {
   let router: Router;
 
   function maakToken(verlooptOver: number): string {
-    const payload = btoa(JSON.stringify({
-      exp: Math.floor(Date.now() / 1000) + verlooptOver
-    }));
+    const payload = btoa(
+      JSON.stringify({
+        exp: Math.floor(Date.now() / 1000) + verlooptOver,
+      }),
+    );
 
     return `header.${payload}.signature`;
   }
@@ -31,11 +26,9 @@ describe('authInterceptor', () => {
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
-        provideHttpClient(
-          withInterceptors([authInterceptor])
-        ),
-        provideHttpClientTesting()
-      ]
+        provideHttpClient(withInterceptors([authInterceptor])),
+        provideHttpClientTesting(),
+      ],
     });
 
     http = TestBed.inject(HttpClient);
@@ -68,9 +61,7 @@ describe('authInterceptor', () => {
 
     const request = httpMock.expectOne('/api/test');
 
-    expect(
-      request.request.headers.get('Authorization')
-    ).toBe(`Bearer ${token}`);
+    expect(request.request.headers.get('Authorization')).toBe(`Bearer ${token}`);
 
     request.flush({});
   });
@@ -90,32 +81,35 @@ describe('authInterceptor', () => {
   });
 
   it('verwijdert een ongeldig token', () => {
-  localStorage.setItem('authToken', 'ongeldig-token');
+    localStorage.setItem('authToken', 'ongeldig-token');
 
-  http.get('/api/test').subscribe();
+    http.get('/api/test').subscribe();
 
-  const request = httpMock.expectOne('/api/test');
+    const request = httpMock.expectOne('/api/test');
 
-  expect(localStorage.getItem('authToken')).toBeNull();
-  expect(router.navigate).toHaveBeenCalledWith(['/login']);
-  expect(request.request.headers.has('Authorization')).toBe(false);
+    expect(localStorage.getItem('authToken')).toBeNull();
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(request.request.headers.has('Authorization')).toBe(false);
 
-  request.flush({});
-});
+    request.flush({});
+  });
 
   it('verwijdert het token en stuurt door bij een 401 response', () => {
     localStorage.setItem('authToken', maakToken(3600));
 
     http.get('/api/test').subscribe({
-      error: () => {}
+      error: () => {},
     });
 
     const request = httpMock.expectOne('/api/test');
 
-    request.flush({}, {
-      status: 401,
-      statusText: 'Unauthorized'
-    });
+    request.flush(
+      {},
+      {
+        status: 401,
+        statusText: 'Unauthorized',
+      },
+    );
 
     expect(localStorage.getItem('authToken')).toBeNull();
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
@@ -126,15 +120,18 @@ describe('authInterceptor', () => {
     localStorage.setItem('authToken', token);
 
     http.get('/api/test').subscribe({
-      error: () => {}
+      error: () => {},
     });
 
     const request = httpMock.expectOne('/api/test');
 
-    request.flush({}, {
-      status: 500,
-      statusText: 'Server Error'
-    });
+    request.flush(
+      {},
+      {
+        status: 500,
+        statusText: 'Server Error',
+      },
+    );
 
     expect(localStorage.getItem('authToken')).toBe(token);
     expect(router.navigate).not.toHaveBeenCalled();

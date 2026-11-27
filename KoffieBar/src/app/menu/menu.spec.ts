@@ -30,10 +30,7 @@ describe('Menu', () => {
 
     await TestBed.configureTestingModule({
       imports: [Menu],
-      providers: [
-        ...testProviders,
-        { provide: MenuService, useValue: menuServiceMock },
-      ],
+      providers: [...testProviders, { provide: MenuService, useValue: menuServiceMock }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Menu);
@@ -69,9 +66,7 @@ describe('Menu', () => {
     menuResponse.error({ status: 500 });
     await fixture.whenStable();
 
-    expect(fixture.nativeElement.textContent).toContain(
-      'Het menu kon niet worden opgehaald.',
-    );
+    expect(fixture.nativeElement.textContent).toContain('Het menu kon niet worden opgehaald.');
     expect(fixture.nativeElement.textContent).not.toContain('Menu laden...');
   });
 });

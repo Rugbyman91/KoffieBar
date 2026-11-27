@@ -9,9 +9,8 @@ import { Winkelmandje } from './services/winkelmandje';
   selector: 'app-root',
   imports: [RouterOutlet, RouterLinkWithHref],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-
 export class App {
   protected auth = inject(AuthService);
   private router = inject(Router);
@@ -22,14 +21,14 @@ export class App {
   constructor() {
     this.router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
-        takeUntilDestroyed()
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
       )
       .subscribe(() => this.sluitMenu());
   }
 
   wisselMenu(): void {
-    this.menuOpen.update(open => !open);
+    this.menuOpen.update((open) => !open);
   }
 
   sluitMenu(): void {

@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth';
   standalone: true,
   imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrl: './login.css',
 })
 export class Login {
   private auth = inject(AuthService);
@@ -23,7 +23,7 @@ export class Login {
     this.foutmelding.set('');
 
     this.auth.login(this.email, this.wachtwoord).subscribe({
-      next: response => {
+      next: (response) => {
         this.auth.bewaarToken(response.token);
         this.router.navigate(['/']);
       },
@@ -31,9 +31,9 @@ export class Login {
         this.foutmelding.set(
           fout.status === 401
             ? 'Ongeldig e-mailadres of wachtwoord.'
-            : 'De server is niet bereikbaar. Probeer het later opnieuw.'
+            : 'De server is niet bereikbaar. Probeer het later opnieuw.',
         );
-      }
+      },
     });
   }
 }

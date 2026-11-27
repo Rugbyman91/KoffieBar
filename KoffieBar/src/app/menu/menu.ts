@@ -1,4 +1,3 @@
-
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { MenuItem } from '../Components/menu-item/menu-item';
@@ -36,7 +35,7 @@ export class Menu implements OnInit {
       error: (error) => {
         console.error('Menu ophalen mislukt:', error);
         this.foutmelding.set('Het menu kon niet worden opgehaald.');
-      }
+      },
     });
   }
 }

@@ -61,13 +61,11 @@ describe('Klantenportaal', () => {
   describe('bestellingen ophalen', () => {
     it('werkt de UI bij na een asynchrone success-response', async () => {
       const bestelling = maakBestelling();
-      const response = new Subject<typeof bestelling[]>();
+      const response = new Subject<(typeof bestelling)[]>();
       bestellingServiceMock.mijnBestellingen.mockReturnValue(response);
 
       fixture.detectChanges();
-      expect(fixture.nativeElement.textContent).toContain(
-        'Bestellingen laden...',
-      );
+      expect(fixture.nativeElement.textContent).toContain('Bestellingen laden...');
 
       response.next([bestelling]);
       response.complete();
@@ -101,15 +99,9 @@ describe('Klantenportaal', () => {
       await fixture.whenStable();
 
       expect(component.laden()).toBe(false);
-      expect(component.foutmelding()).toBe(
-        'Je sessie is verlopen. Log opnieuw in.',
-      );
-      expect(fixture.nativeElement.textContent).toContain(
-        'Je sessie is verlopen. Log opnieuw in.',
-      );
-      expect(fixture.nativeElement.textContent).not.toContain(
-        'Bestellingen laden...',
-      );
+      expect(component.foutmelding()).toBe('Je sessie is verlopen. Log opnieuw in.');
+      expect(fixture.nativeElement.textContent).toContain('Je sessie is verlopen. Log opnieuw in.');
+      expect(fixture.nativeElement.textContent).not.toContain('Bestellingen laden...');
     });
 
     it('toont een algemene fout na een asynchrone serverfout', async () => {
@@ -121,9 +113,7 @@ describe('Klantenportaal', () => {
       await fixture.whenStable();
 
       expect(component.laden()).toBe(false);
-      expect(component.foutmelding()).toBe(
-        'Je bestellingen konden niet worden opgehaald.',
-      );
+      expect(component.foutmelding()).toBe('Je bestellingen konden niet worden opgehaald.');
       expect(fixture.nativeElement.textContent).toContain(
         'Je bestellingen konden niet worden opgehaald.',
       );
@@ -197,9 +187,7 @@ describe('Klantenportaal', () => {
       expect(window.confirm).toHaveBeenCalledWith(
         'Ben je zeker dat je bestelling #1 wilt annuleren?',
       );
-      expect(
-        bestellingServiceMock.annuleerBestelling,
-      ).not.toHaveBeenCalled();
+      expect(bestellingServiceMock.annuleerBestelling).not.toHaveBeenCalled();
       expect(component.bestellingen()[0].status).toBe('Geplaatst');
     });
 

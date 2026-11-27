@@ -1,97 +1,82 @@
-
 <article class="menu-item">
-  <img
-    [src]="'assets/' + item.name.toLowerCase() + '.png'"
-    [alt]="item.name"
-  >
+  <img [src]="'assets/' + item.name.toLowerCase() + '.png'" [alt]="item.name" />
 
   <h3>{{ item.name }}</h3>
   <p>{{ item.description }}</p>
   <p class="allergies">Allergenen: {{ item.allergies }}</p>
   <p class="price">€ {{ item.price.toFixed(2) }}</p>
 
+  @if (isKoffie) {
+    <button type="button" class="bestel-knop" (click)="openDialoog()">Bestellen</button>
+  } @else {
+    <div class="bestel-controls">
+      <input
+        [id]="'aantal-' + item.id"
+        type="number"
+        min="1"
+        step="1"
+        aria-label="Aantal"
+        [(ngModel)]="aantal"
+      />
 
-@if (isKoffie) {
-  <button type="button" class="bestel-knop" (click)="openDialoog()">
-    Bestellen
-  </button>
-} @else {
-  <div class="bestel-controls">
-    <input
-      [id]="'aantal-' + item.id"
-      type="number"
-      min="1"
-      step="1"
-      aria-label="Aantal"
-      [(ngModel)]="aantal"
-    >
+      <button type="button" (click)="voegToe()">Toevoegen</button>
+    </div>
+  }
 
-    <button type="button" (click)="voegToe()">
-      Toevoegen
-    </button>
-  </div>
-}
+  @if (dialoogOpen) {
+    <div class="dialoog-overlay" (click)="dialoogOpen = false">
+      <section
+        class="koffie-dialoog"
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-label]="'Bestel ' + item.name"
+        (click)="$event.stopPropagation()"
+      >
+        <h3>{{ item.name }} samenstellen</h3>
 
-@if (dialoogOpen) {
-  <div class="dialoog-overlay" (click)="dialoogOpen = false">
-    <section
-      class="koffie-dialoog"
-      role="dialog"
-      aria-modal="true"
-      [attr.aria-label]="'Bestel ' + item.name"
-      (click)="$event.stopPropagation()"
-    >
-      <h3>{{ item.name }} samenstellen</h3>
+        <h4>Formaat</h4>
+        @for (grootte of beschikbareGroottes; track grootte.code) {
+          <label class="keuze-optie">
+            <input type="radio" name="grootte" [value]="grootte" [(ngModel)]="gekozenGrootte" />
 
-      <h4>Formaat</h4>
-      @for (grootte of beschikbareGroottes; track grootte.code) {
-        <label class="keuze-optie">
-          <input
-            type="radio"
-            name="grootte"
-            [value]="grootte"
-            [(ngModel)]="gekozenGrootte"
+            <span>{{ grootte.label }}</span>
+
+            <span class="keuze-prijs">
+              {{ prijsVoorGrootte(grootte) | currency: 'EUR' : 'symbol' : '1.2-2' }}
+            </span>
+          </label>
+        }
+
+        <h4>Extra's</h4>
+        @for (extra of extras; track extra.id) {
+          <label class="keuze-optie">
+            <input
+              type="checkbox"
+              [checked]="gekozenExtras.includes(extra.id)"
+              (change)="
+                $any($event.target).checked
+                  ? gekozenExtras.push(extra.id)
+                  : (gekozenExtras = gekozenExtras.filter((id) => id !== extra.id))
+              "
+            />
+            {{ extra.name }} (+ € {{ extra.price.toFixed(2) }})
+          </label>
+        }
+
+        <div class="dialoog-acties">
+          <button type="button" class="annuleer-knop" (click)="dialoogOpen = false">
+            Annuleren
+          </button>
+          <button
+            type="button"
+            class="bestel-knop"
+            [disabled]="!gekozenGrootte"
+            (click)="bevestigKoffie()"
           >
-
-          <span>{{ grootte.label }}</span>
-
-          <span class="keuze-prijs">
-            {{ prijsVoorGrootte(grootte) | currency:'EUR':'symbol':'1.2-2' }}
-          </span>
-        </label>
-      }
-
-      <h4>Extra's</h4>
-      @for (extra of extras; track extra.id) {
-        <label class="keuze-optie">
-          <input
-            type="checkbox"
-            [checked]="gekozenExtras.includes(extra.id)"
-            (change)="
-              $any($event.target).checked
-                ? gekozenExtras.push(extra.id)
-                : gekozenExtras = gekozenExtras.filter(id => id !== extra.id)
-            "
-          >
-          {{ extra.name }} (+ € {{ extra.price.toFixed(2) }})
-        </label>
-      }
-
-      <div class="dialoog-acties">
-        <button type="button" class="annuleer-knop" (click)="dialoogOpen = false">
-          Annuleren
-        </button>
-        <button
-          type="button"
-          class="bestel-knop"
-          [disabled]="!gekozenGrootte"
-          (click)="bevestigKoffie()"
-        >
-          Toevoegen
-        </button>
-      </div>
-    </section>
-  </div>
-}
-
+            Toevoegen
+          </button>
+        </div>
+      </section>
+    </div>
+  }
 </article>

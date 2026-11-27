@@ -46,9 +46,7 @@ describe('Winkelmandje', () => {
     it('voegt een nieuwe regel toe', () => {
       mandje.voegGebakToe(croissant, 2);
 
-      expect(mandje.bestelregels()).toEqual([
-        { type: 'gebak', product: croissant, aantal: 2 },
-      ]);
+      expect(mandje.bestelregels()).toEqual([{ type: 'gebak', product: croissant, aantal: 2 }]);
     });
 
     it('telt het aantal op bij hetzelfde gebak', () => {
@@ -132,9 +130,7 @@ describe('Winkelmandje', () => {
 
       mandje.verwijderRegel(0);
 
-      expect(mandje.bestelregels()).toEqual([
-        { type: 'gebak', product: kaneelkoek, aantal: 1 },
-      ]);
+      expect(mandje.bestelregels()).toEqual([{ type: 'gebak', product: kaneelkoek, aantal: 1 }]);
     });
 
     it('laat het mandje ongewijzigd bij een index die niet bestaat', () => {
@@ -161,9 +157,7 @@ describe('Winkelmandje', () => {
 
       mandje.verwijderRegel(0);
 
-      const opgeslagen = JSON.parse(
-        localStorage.getItem('winkelmandje') ?? '[]'
-      );
+      const opgeslagen = JSON.parse(localStorage.getItem('winkelmandje') ?? '[]');
 
       expect(opgeslagen).toHaveLength(1);
       expect(opgeslagen[0].product.name).toBe('Kaneelkoek');

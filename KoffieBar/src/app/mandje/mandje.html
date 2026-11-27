@@ -1,4 +1,3 @@
-
 <section class="winkelmand">
   <header class="winkelmand-header">
     <h2>Je winkelmandje</h2>
@@ -18,7 +17,7 @@
             class="bestelregel-afbeelding"
             [src]="'assets/' + regel.product.name.toLowerCase() + '.png'"
             [alt]="regel.product.name"
-          >
+          />
 
           <div class="bestelregel-info">
             <h3>{{ regel.product.name }}</h3>
@@ -27,9 +26,7 @@
               <p>{{ regel.grootte.label }}</p>
 
               @if (regel.extras.length > 0) {
-                <p>
-                  Extra's: {{ regel.extras.map(extra => extra.name).join(', ') }}
-                </p>
+                <p>Extra's: {{ regel.extras.map((extra) => extra.name).join(', ') }}</p>
               }
             }
 
@@ -39,29 +36,26 @@
               @if (overzicht.bestelregels[$index]; as prijsRegel) {
                 <p>
                   Prijs per stuk:
-                  {{ prijsRegel.eenheidsprijs | currency:'EUR':'symbol':'1.2-2' }}
+                  {{ prijsRegel.eenheidsprijs | currency: 'EUR' : 'symbol' : '1.2-2' }}
                 </p>
 
                 <p>
                   Subtotaal:
-                  {{ prijsRegel.subtotaal | currency:'EUR':'symbol':'1.2-2' }}
+                  {{ prijsRegel.subtotaal | currency: 'EUR' : 'symbol' : '1.2-2' }}
                 </p>
 
                 @if (prijsRegel.aantalMetKorting > 0) {
                   <p class="korting-info">
-                    {{ prijsRegel.aantalMetKorting }} van {{ prijsRegel.aantal }} {{ prijsRegel.aantal === 1 ? 'item' : 'items' }}
-                     krijgen 10% combinatiekorting.
+                    {{ prijsRegel.aantalMetKorting }} van {{ prijsRegel.aantal }}
+                    {{ prijsRegel.aantal === 1 ? 'item' : 'items' }}
+                    krijgen 10% combinatiekorting.
                   </p>
                 }
               }
             }
           </div>
 
-          <button
-            type="button"
-            class="verwijder-knop"
-            (click)="mandje.verwijderRegel($index)"
-          >
+          <button type="button" class="verwijder-knop" (click)="mandje.verwijderRegel($index)">
             Verwijderen
           </button>
         </article>
@@ -76,55 +70,59 @@
       <section class="prijs-overzicht">
         <h3>Overzicht</h3>
         <h4>10% combinatiekorting</h4>
-          <p>
-            Bij een bestelling met koffie én gebak krijg je 10% korting
-            op de goedkoopste stuks. De API bepaalt welke stuks korting krijgen.
-          </p>
+        <p>
+          Bij een bestelling met koffie én gebak krijg je 10% korting op de goedkoopste stuks. De
+          API bepaalt welke stuks korting krijgen.
+        </p>
 
-          @if (bevatKoffie && bevatGebak) {
-            @if (overzicht.bestelregels.some(regel => regel.aantalMetKorting > 0)) {
-              <p>Volgende items krijgen korting:</p>
+        @if (bevatKoffie && bevatGebak) {
+          @if (overzicht.bestelregels.some((regel) => regel.aantalMetKorting > 0)) {
+            <p>Volgende items krijgen korting:</p>
 
-              <ul class="korting-regels">
-                @for (regel of overzicht.bestelregels; track $index) {
-                  @if (regel.aantalMetKorting > 0) {
-                    <li>
-                      {{ regel.productNaam }}:
-                      {{ regel.aantalMetKorting }}
-                      {{ regel.aantalMetKorting === 1 ? 'item' : 'items' }}
-                      met korting
-                    </li>
-                  }
+            <ul class="korting-regels">
+              @for (regel of overzicht.bestelregels; track $index) {
+                @if (regel.aantalMetKorting > 0) {
+                  <li>
+                    {{ regel.productNaam }}:
+                    {{ regel.aantalMetKorting }}
+                    {{ regel.aantalMetKorting === 1 ? 'item' : 'items' }}
+                    met korting
+                  </li>
                 }
-              </ul>
-            }
-          } @else if (bevatKoffie) {
-            <p>Voeg <a routerLink="/menu" fragment="gebak" class="kortingsbedrag">hier</a> nog een gebak toe om combinatiekorting te krijgen.</p>
-          } @else if (bevatGebak) {
-            <p>Voeg <a routerLink="/menu" fragment="koffie" class="kortingsbedrag">hier</a> nog een koffie toe om combinatiekorting te krijgen.</p>
+              }
+            </ul>
           }
+        } @else if (bevatKoffie) {
+          <p>
+            Voeg <a routerLink="/menu" fragment="gebak" class="kortingsbedrag">hier</a> nog een
+            gebak toe om combinatiekorting te krijgen.
+          </p>
+        } @else if (bevatGebak) {
+          <p>
+            Voeg <a routerLink="/menu" fragment="koffie" class="kortingsbedrag">hier</a> nog een
+            koffie toe om combinatiekorting te krijgen.
+          </p>
+        }
 
         <div class="prijs-regels">
           <p>
             <span>Prijs voor korting:</span>
             <span>
-              {{ overzicht.oorspronkelijkePrijs | currency:'EUR':'symbol':'1.2-2' }}
+              {{ overzicht.oorspronkelijkePrijs | currency: 'EUR' : 'symbol' : '1.2-2' }}
             </span>
           </p>
 
           @if (overzicht.korting > 0) {
             <p class="kortingsbedrag">
               <span>Combinatiekorting (10%):</span>
-              <span>
-                -{{ overzicht.korting | currency:'EUR':'symbol':'1.2-2' }}
-              </span>
+              <span> -{{ overzicht.korting | currency: 'EUR' : 'symbol' : '1.2-2' }} </span>
             </p>
           }
 
           <p>
             <span>Prijs na korting:</span>
             <span>
-              {{ overzicht.subTotaal | currency:'EUR':'symbol':'1.2-2' }}
+              {{ overzicht.subTotaal | currency: 'EUR' : 'symbol' : '1.2-2' }}
             </span>
           </p>
 
@@ -132,7 +130,7 @@
             <p>
               <span>Afronding:</span>
               <span>
-                {{ overzicht.afronding | currency:'EUR':'symbol':'1.2-2' }}
+                {{ overzicht.afronding | currency: 'EUR' : 'symbol' : '1.2-2' }}
               </span>
             </p>
           }
@@ -140,7 +138,7 @@
           <p class="totaalprijs">
             <strong>Totaal afgerond:</strong>
             <strong>
-              {{ overzicht.totaal | currency:'EUR':'symbol':'1.2-2' }}
+              {{ overzicht.totaal | currency: 'EUR' : 'symbol' : '1.2-2' }}
             </strong>
           </p>
         </div>
@@ -151,11 +149,7 @@
 
     <footer class="winkelmand-footer">
       <div class="winkelmand-acties">
-        <button
-          type="button"
-          class="leegmaken-knop"
-          (click)="mandje.leegmaken()"
-        >
+        <button type="button" class="leegmaken-knop" (click)="mandje.leegmaken()">
           Mandje leegmaken
         </button>
 

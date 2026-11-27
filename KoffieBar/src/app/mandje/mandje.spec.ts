@@ -85,8 +85,6 @@ describe('Mandje bestelling plaatsen', () => {
 
     expect(bestellingServiceMock.plaatsBestelling).toHaveBeenCalled();
     expect(winkelmandje.bestelregels()).toEqual([]);
-    expect(winkelmandje.melding()).toBe(
-      'Je bestelling is succesvol geplaatst.',
-    );
+    expect(winkelmandje.melding()).toBe('Je bestelling is succesvol geplaatst.');
   });
 });

@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth';
   selector: 'app-registreer',
   imports: [FormsModule, RouterLink],
   templateUrl: './registreer.html',
-  styleUrl: '../login/login.css'
+  styleUrl: '../login/login.css',
 })
 export class Registreer {
   private auth = inject(AuthService);
@@ -26,19 +26,18 @@ export class Registreer {
       { tekst: 'Een hoofdletter', ok: /\p{Lu}/u.test(w) },
       { tekst: 'Een kleine letter', ok: /\p{Ll}/u.test(w) },
       { tekst: 'Een cijfer', ok: /[0-9]/.test(w) },
-      { tekst: 'Een speciaal teken', ok: /[^\p{L}0-9]/u.test(w) }
+      { tekst: 'Een speciaal teken', ok: /[^\p{L}0-9]/u.test(w) },
     ];
   });
 
-  allesOk = computed(() => this.regels().every(r => r.ok));
+  allesOk = computed(() => this.regels().every((r) => r.ok));
 
   registreer(): void {
     this.foutmeldingen.set([]);
 
     this.auth.registreer(this.naam, this.email, this.wachtwoord()).subscribe({
       next: () => this.router.navigate(['/login']),
-      error: (fout: HttpErrorResponse) =>
-        this.foutmeldingen.set(this.naarMeldingen(fout))
+      error: (fout: HttpErrorResponse) => this.foutmeldingen.set(this.naarMeldingen(fout)),
     });
   }
 

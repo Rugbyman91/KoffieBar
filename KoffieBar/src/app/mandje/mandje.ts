@@ -1,4 +1,3 @@
-
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -7,11 +6,7 @@ import { of } from 'rxjs';
 import { catchError, debounceTime, switchMap } from 'rxjs/operators';
 
 import { Winkelmandje } from '../services/winkelmandje';
-import {
-  BestellingService,
-  BestellingAanvraag,
-  BestellingResponse
-} from '../services/bestelling';
+import { BestellingService, BestellingAanvraag, BestellingResponse } from '../services/bestelling';
 import { Bestelregel } from '../models/bestelregel';
 
 @Component({
@@ -34,7 +29,7 @@ export class Mandje {
     toObservable(this.mandje.bestelregels)
       .pipe(
         debounceTime(200),
-        switchMap(regels => {
+        switchMap((regels) => {
           if (regels.length === 0) {
             this.prijsFoutmelding.set(null);
             return of(null);
@@ -42,57 +37,42 @@ export class Mandje {
 
           this.prijsFoutmelding.set(null);
 
-          return this.bestellingService
-            .berekenBestelling(this.maakAanvraag(regels))
-            .pipe(
-              catchError(error => {
-                console.error('Prijsberekening mislukt:', error);
-                this.prijsFoutmelding.set(
-                  'De prijzen konden niet worden berekend.'
-                );
-                return of(null);
-              })
-            );
+          return this.bestellingService.berekenBestelling(this.maakAanvraag(regels)).pipe(
+            catchError((error) => {
+              console.error('Prijsberekening mislukt:', error);
+              this.prijsFoutmelding.set('De prijzen konden niet worden berekend.');
+              return of(null);
+            }),
+          );
         }),
-        takeUntilDestroyed(this.destroyRef)
+        takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe(overzicht => {
-      this.prijsOverzicht.set(overzicht);
-    });
+      .subscribe((overzicht) => {
+        this.prijsOverzicht.set(overzicht);
+      });
   }
 
   get bevatKoffie(): boolean {
-  return this.mandje.bestelregels().some(
-    regel => regel.type === 'koffie'
-  );
-}
+    return this.mandje.bestelregels().some((regel) => regel.type === 'koffie');
+  }
 
-get bevatGebak(): boolean {
-  return this.mandje.bestelregels().some(
-    regel => regel.type !== 'koffie'
-  );
-}
+  get bevatGebak(): boolean {
+    return this.mandje.bestelregels().some((regel) => regel.type !== 'koffie');
+  }
 
   private maakAanvraag(regels: Bestelregel[]): BestellingAanvraag {
     return {
-      bestelregels: regels.map(regel => ({
+      bestelregels: regels.map((regel) => ({
         productId: regel.product.id,
         aantal: regel.aantal,
-        grootteCode: regel.type === 'koffie'
-          ? regel.grootte.code
-          : null,
-        extraIds: regel.type === 'koffie'
-          ? regel.extras.map(extra => extra.id)
-          : []
-      }))
+        grootteCode: regel.type === 'koffie' ? regel.grootte.code : null,
+        extraIds: regel.type === 'koffie' ? regel.extras.map((extra) => extra.id) : [],
+      })),
     };
   }
 
   plaatsBestelling(): void {
-    if (
-      this.mandje.bestelregels().length === 0 ||
-      this.bezigMetBestellen()
-    ) {
+    if (this.mandje.bestelregels().length === 0 || this.bezigMetBestellen()) {
       return;
     }
 
@@ -107,13 +87,11 @@ get bevatGebak(): boolean {
           this.mandje.toonMelding('Je bestelling is succesvol geplaatst.');
           this.bezigMetBestellen.set(false);
         },
-        error: error => {
+        error: (error) => {
           console.error('Bestelling plaatsen mislukt:', error);
-          this.foutmelding.set(
-            'Bestelling mislukt. Probeer het opnieuw.'
-          );
+          this.foutmelding.set('Bestelling mislukt. Probeer het opnieuw.');
           this.bezigMetBestellen.set(false);
-        }
+        },
       });
   }
 }

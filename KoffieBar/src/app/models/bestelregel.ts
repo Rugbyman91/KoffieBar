@@ -1,4 +1,3 @@
-
 import { MenuOptions, ExtraOption, KoffieGrootte } from '../menu-options';
 
 export interface GebakBestelregel {

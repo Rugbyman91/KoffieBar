@@ -1,4 +1,3 @@
-
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { MenuService } from './menu';
@@ -8,7 +7,7 @@ describe('MenuService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient()]
+      providers: [provideHttpClient()],
     });
 
     service = TestBed.inject(MenuService);

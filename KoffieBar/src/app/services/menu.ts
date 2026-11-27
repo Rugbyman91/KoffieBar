@@ -5,7 +5,7 @@ import { MenuData } from '../menu-options';
 import { API_BASE_URL } from '../api-config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MenuService {
   private readonly http = inject(HttpClient);

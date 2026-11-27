@@ -1,22 +1,22 @@
 export interface MenuOptions {
-    id: number,
-    name: string,
-    description: string,
-    allergies: string,
-    price: number,
-    categorie: Categorie;
-    isEspresso: boolean;
+  id: number;
+  name: string;
+  description: string;
+  allergies: string;
+  price: number;
+  categorie: Categorie;
+  isEspresso: boolean;
 }
 
 export enum Categorie {
   Koffie = 1,
-  Gebak = 2
+  Gebak = 2,
 }
 
 export interface ExtraOption {
-    id: number,
-    name: string,
-    price: number
+  id: number;
+  name: string;
+  price: number;
 }
 
 export interface KoffieGrootte {

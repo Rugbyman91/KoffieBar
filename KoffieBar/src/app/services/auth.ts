@@ -9,7 +9,7 @@ interface LoginResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
@@ -17,19 +17,12 @@ export class AuthService {
   private token = signal<string | null>(localStorage.getItem('authToken'));
   readonly ingelogd = computed(() => this.token() !== null);
 
-
   login(email: string, wachtwoord: string) {
-    return this.http.post<LoginResponse>(
-      `${this.apiUrl}/login`,
-      { email, wachtwoord }
-    );
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, wachtwoord });
   }
 
   registreer(naam: string, email: string, wachtwoord: string) {
-    return this.http.post(
-      `${this.apiUrl}/registreer`,
-      { naam, email, wachtwoord }
-    );
+    return this.http.post(`${this.apiUrl}/registreer`, { naam, email, wachtwoord });
   }
 
   bewaarToken(token: string): void {

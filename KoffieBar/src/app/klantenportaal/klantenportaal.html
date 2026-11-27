@@ -13,59 +13,55 @@
     }
 
     @for (bestelling of bestellingen(); track bestelling.id) {
-
       <article class="bestelling">
         <div class="bestelling-header">
           <h2>Bestellingscode #{{ bestelling.id }}</h2>
 
           <div class="bestelling-acties">
-            <span>{{ bestelling.besteldOp | date:'dd-MM-yyyy HH:mm' }}</span>
+            <span>{{ bestelling.besteldOp | date: 'dd-MM-yyyy HH:mm' }}</span>
 
             <span
               class="bestelling-status"
               [class.status-geplaatst]="bestelling.status === 'Geplaatst'"
-              [class.status-geannuleerd]="bestelling.status === 'Geannuleerd'">
+              [class.status-geannuleerd]="bestelling.status === 'Geannuleerd'"
+            >
               {{ bestelling.status }}
             </span>
 
             @if (kanAnnuleren(bestelling)) {
-              <button
-                type="button"
-                class="annuleer-knop"
-                (click)="annuleerBestelling(bestelling)">
+              <button type="button" class="annuleer-knop" (click)="annuleerBestelling(bestelling)">
                 Annuleren
               </button>
             }
-            </div>
           </div>
+        </div>
 
-          <ul>
-            @for (regel of bestelling.bestelregels; track $index) {
-              <li>
-                <div class="bestelregel-info">
-                  <span>
-                    {{ regel.aantal }} × {{ regel.productNaam }}
-                    @if (regel.grootteCode) {
-                      ({{ regel.grootteCode }})
-                    }
-                  </span>
-
-                  @if (regel.extras.length > 0) {
-                    <small>Extra's: {{ regel.extras.join(', ') }}</small>
+        <ul>
+          @for (regel of bestelling.bestelregels; track $index) {
+            <li>
+              <div class="bestelregel-info">
+                <span>
+                  {{ regel.aantal }} × {{ regel.productNaam }}
+                  @if (regel.grootteCode) {
+                    ({{ regel.grootteCode }})
                   }
-                </div>
+                </span>
 
-                <span>{{ regel.subtotaal | currency:'EUR' }}</span>
-              </li>
-            }
-          </ul>
+                @if (regel.extras.length > 0) {
+                  <small>Extra's: {{ regel.extras.join(', ') }}</small>
+                }
+              </div>
 
-          <div class="bestelling-totaal">
-            <strong>Totaal</strong>
-            <strong>{{ bestelling.totaal | currency:'EUR' }}</strong>
-          </div>
-        </article>
+              <span>{{ regel.subtotaal | currency: 'EUR' }}</span>
+            </li>
+          }
+        </ul>
 
-      }
+        <div class="bestelling-totaal">
+          <strong>Totaal</strong>
+          <strong>{{ bestelling.totaal | currency: 'EUR' }}</strong>
+        </div>
+      </article>
+    }
   }
 </section>

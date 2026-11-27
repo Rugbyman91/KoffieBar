@@ -8,31 +8,32 @@
       </div>
     </div>
   </a>
-  @if(auth.ingelogd()){
-  <button
-    type="button"
-    class="menu-knop"
-    [attr.aria-expanded]="menuOpen()"
-    (click)="wisselMenu()"
-  >
-    <span aria-hidden="true">☰</span> Menu
-    @if (mandje.aantalStuks() > 0) {
-      <span class="badge">{{ mandje.aantalStuks() }}</span>
-    }
-  </button>
-
-  <div class="buttons" [class.open]="menuOpen()">
-    <button routerLink="/" (click)="sluitMenu()">Home</button>
-    <button routerLink="menu" (click)="sluitMenu()">Menu</button>
-    <button routerLink="klanten" (click)="sluitMenu()">Klantportaal</button>
-    <button routerLink="winkelmandje" (click)="sluitMenu()">
-      Winkelmand
+  @if (auth.ingelogd()) {
+    <button
+      type="button"
+      class="menu-knop"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="wisselMenu()"
+    >
+      <span aria-hidden="true">☰</span> Menu
       @if (mandje.aantalStuks() > 0) {
         <span class="badge">{{ mandje.aantalStuks() }}</span>
       }
     </button>
-    <button (click)="uitloggen()">Uitloggen</button>
-  </div>}
+
+    <div class="buttons" [class.open]="menuOpen()">
+      <button routerLink="/" (click)="sluitMenu()">Home</button>
+      <button routerLink="menu" (click)="sluitMenu()">Menu</button>
+      <button routerLink="klanten" (click)="sluitMenu()">Klantportaal</button>
+      <button routerLink="winkelmandje" (click)="sluitMenu()">
+        Winkelmand
+        @if (mandje.aantalStuks() > 0) {
+          <span class="badge">{{ mandje.aantalStuks() }}</span>
+        }
+      </button>
+      <button (click)="uitloggen()">Uitloggen</button>
+    </div>
+  }
 </header>
 
 <main class="content">
