@@ -26,7 +26,6 @@ export class Mandje {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly bezigMetBestellen = signal(false);
-  readonly melding = signal<string | null>(null);
   readonly foutmelding = signal<string | null>(null);
   readonly prijsOverzicht = signal<BestellingResponse | null>(null);
   readonly prijsFoutmelding = signal<string | null>(null);
@@ -97,7 +96,6 @@ get bevatGebak(): boolean {
       return;
     }
 
-    this.melding.set(null);
     this.foutmelding.set(null);
     this.bezigMetBestellen.set(true);
 
@@ -105,8 +103,8 @@ get bevatGebak(): boolean {
       .plaatsBestelling(this.maakAanvraag(this.mandje.bestelregels()))
       .subscribe({
         next: () => {
-          this.melding.set('Je bestelling is succesvol geplaatst.');
           this.mandje.leegmaken();
+          this.mandje.toonMelding('Je bestelling is succesvol geplaatst.');
           this.bezigMetBestellen.set(false);
         },
         error: error => {

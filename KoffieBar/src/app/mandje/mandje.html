@@ -170,9 +170,7 @@
       </div>
 
       <div class="winkelmand-meldingen" aria-live="polite">
-        @if (melding()) {
-          <p class="succesmelding">{{ melding() }}</p>
-        } @else if (foutmelding()) {
+        @if (foutmelding()) {
           <p class="foutmelding" role="alert">{{ foutmelding() }}</p>
         }
       </div>

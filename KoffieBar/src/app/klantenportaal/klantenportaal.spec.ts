@@ -216,13 +216,14 @@ describe('Klantenportaal', () => {
       response.error({ status: 400 });
       await fixture.whenStable();
 
-      expect(component.foutmelding()).toBe(
+      expect(component.annuleerFoutmelding()).toBe(
         'Deze bestelling kan niet meer geannuleerd worden.',
       );
       expect(fixture.nativeElement.textContent).toContain(
         'Deze bestelling kan niet meer geannuleerd worden.',
       );
       expect(component.bestellingen()[0].status).toBe('Geplaatst');
+      expect(fixture.nativeElement.textContent).toContain('Bestellingscode #1');
     });
 
     it('toont een algemene fout na een asynchrone serverfout', async () => {
@@ -238,12 +239,13 @@ describe('Klantenportaal', () => {
       response.error({ status: 500 });
       await fixture.whenStable();
 
-      expect(component.foutmelding()).toBe(
+      expect(component.annuleerFoutmelding()).toBe(
         'Er ging iets mis bij het annuleren van je bestelling.',
       );
       expect(fixture.nativeElement.textContent).toContain(
         'Er ging iets mis bij het annuleren van je bestelling.',
       );
+      expect(fixture.nativeElement.textContent).toContain('Bestellingscode #1');
     });
   });
 });

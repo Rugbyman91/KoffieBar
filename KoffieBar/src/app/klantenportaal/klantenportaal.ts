@@ -33,6 +33,7 @@ export class Klantenportaal implements OnInit {
 
   readonly bestellingen = signal<Bestelling[]>([]);
   readonly foutmelding = signal('');
+  readonly annuleerFoutmelding = signal('');
   readonly laden = signal(true);
 
 
@@ -49,6 +50,8 @@ annuleerBestelling(bestelling: Bestelling): void {
     return;
   }
 
+  this.annuleerFoutmelding.set('');
+
   this.bestellingService.annuleerBestelling(bestelling.id).subscribe({
     next: () => {
       this.bestellingen.update(bestellingen =>
@@ -61,7 +64,7 @@ annuleerBestelling(bestelling: Bestelling): void {
     },
     error: error => {
       console.error('Annuleren mislukt:', error);
-      this.foutmelding.set(
+      this.annuleerFoutmelding.set(
         error.status === 400
           ? 'Deze bestelling kan niet meer geannuleerd worden.'
           : 'Er ging iets mis bij het annuleren van je bestelling.'

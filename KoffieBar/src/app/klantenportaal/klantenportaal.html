@@ -8,6 +8,10 @@
   } @else if (bestellingen().length === 0) {
     <p>Je hebt nog geen bestellingen geplaatst.</p>
   } @else {
+    @if (annuleerFoutmelding()) {
+      <p class="foutmelding" role="alert">{{ annuleerFoutmelding() }}</p>
+    }
+
     @for (bestelling of bestellingen(); track bestelling.id) {
 
       <article class="bestelling">

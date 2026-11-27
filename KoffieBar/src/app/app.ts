@@ -17,6 +17,7 @@ export class App {
 
   uitloggen(): void {
     this.auth.uitloggen();
+    this.mandje.leegmaken();
     this.router.navigate(['/login']);
   }
 }

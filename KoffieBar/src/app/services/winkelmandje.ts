@@ -108,7 +108,7 @@ export class Winkelmandje {
     localStorage.setItem(this.opslagSleutel, JSON.stringify(this.regels()));
   }
 
-  private toonMelding(tekst: string): void {
+  toonMelding(tekst: string): void {
     this.melding.set(tekst);
     clearTimeout(this.meldingTimer);
     this.meldingTimer = setTimeout(() => this.melding.set(null), 3000);
